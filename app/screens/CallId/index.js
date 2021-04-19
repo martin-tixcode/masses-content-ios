@@ -70,85 +70,85 @@ export default function CallId({ navigation, route }) {
 
     console.log('object', data)
 
-      let response = await videoCallRepository.joinCall(data);
+    let response = await videoCallRepository.joinCall(data);
 
-      
-      /*if (Platform.OS === 'android') {
-        requestAndroidCameraAndAudioPermission();
-      } else {
-        console.log('android');
-      }*/
 
-      if (!response) {
-        Alert.alert('Ingrese un canal valido');
-        return console.log('false');
-      } else if (response == 'Wait for the host') {
-        Alert.alert('Wait for the host');
-        return console.log('false');
-      } else {
+    /*if (Platform.OS === 'android') {
+      requestAndroidCameraAndAudioPermission();
+    } else {
+      console.log('android');
+    }*/
 
-        console.log('pase igual');
-        setValidChanell(response);
+    if (!response) {
+      Alert.alert('Ingrese un canal valido');
+      return console.log('false');
+    } else if (response == 'Wait for the host') {
+      Alert.alert('Wait for the host');
+      return console.log('false');
+    } else {
 
-        const requestAndroidCameraAndAudioPermission = async () => {
-          const permissionsEnabled = await Utils.requestAndroidCameraAndAudioPermission(
+      console.log('pase igual');
+      setValidChanell(response);
+
+      const requestAndroidCameraAndAudioPermission = async () => {
+        const permissionsEnabled = await Utils.requestAndroidCameraAndAudioPermission(
             t,
             navigation,
-          );
-          if (permissionsEnabled) {
-            console.log('useEfect');
-          }
-        };
-
-        initCall(channel);
-
-      }
-
-      function handleUserJoined(data) {
-        console.log('peer joined: ', data);
-        if (peerIds.indexOf(data) === -1) {
-          setPeerIds(currentState => [...currentState, data]);
+        );
+        if (permissionsEnabled) {
+          console.log('useEfect');
         }
-      }
-
-      function handleUserOffline() {
-        console.log(' console.log(timeoutGoBack.current)', timeoutGoBack.current);
-        if (timeoutGoBack.current === undefined) {
-          timeoutGoBack.current = setTimeout(() => {
-            // setShowViews(false)
-            // navigation.goBack();
-            endCall();
-          }, 2000);
-        } else {
-          endCall();
-        }
-      }
-
-      function handleJoinSucceed() {
-
-        setShowViews(true);
-      }
-
-      async function initCall(channelName) {
-        agoraRtcEngine.current = await RtcEngine.create(appId);
-
-        const events = {
-          handleUserJoined,
-          handleUserOffline,
-          handleJoinSucceed,
-        };
-        Utils.agoraRtcEngine(agoraRtcEngine.current, channelName, events, null, false);
-      }
-
-      return () => {
-        if (agoraRtcEngine.current) {
-          agoraRtcEngine.current.removeAllListeners();
-          agoraRtcEngine.current.leaveChannel();
-          agoraRtcEngine.current.destroy();
-        }
-
-        //   if (timeoutGoBack.current) clearTimeout(timeoutGoBack.current);
       };
+
+      initCall(channel);
+
+    }
+
+    function handleUserJoined(data) {
+      console.log('peer joined: ', data);
+      if (peerIds.indexOf(data) === -1) {
+        setPeerIds(currentState => [...currentState, data]);
+      }
+    }
+
+    function handleUserOffline() {
+      console.log(' console.log(timeoutGoBack.current)', timeoutGoBack.current);
+      if (timeoutGoBack.current === undefined) {
+        timeoutGoBack.current = setTimeout(() => {
+          // setShowViews(false)
+          // navigation.goBack();
+          endCall();
+        }, 2000);
+      } else {
+        endCall();
+      }
+    }
+
+    function handleJoinSucceed() {
+
+      setShowViews(true);
+    }
+
+    async function initCall(channelName) {
+      agoraRtcEngine.current = await RtcEngine.create(appId);
+
+      const events = {
+        handleUserJoined,
+        handleUserOffline,
+        handleJoinSucceed,
+      };
+      Utils.agoraRtcEngine(agoraRtcEngine.current, channelName, events, null, false);
+    }
+
+    return () => {
+      if (agoraRtcEngine.current) {
+        agoraRtcEngine.current.removeAllListeners();
+        agoraRtcEngine.current.leaveChannel();
+        agoraRtcEngine.current.destroy();
+      }
+
+      //   if (timeoutGoBack.current) clearTimeout(timeoutGoBack.current);
+    };
 
   };
 
@@ -163,23 +163,22 @@ export default function CallId({ navigation, route }) {
     }, [fadeAnim]);
 
     return (
-      <Animated.View // Special animatable View
-        style={{
-          ...props.style,
-          opacity: fadeAnim, // Bind opacity to animated value
-        }}>
-        {props.children}
-      </Animated.View>
+        <Animated.View // Special animatable View
+            style={{
+              ...props.style,
+              opacity: fadeAnim, // Bind opacity to animated value
+            }}>
+          {props.children}
+        </Animated.View>
     );
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <KeepAwake />
+      <View style={{ flex: 1 }}>
+        <KeepAwake />
 
-      {/* {waiting && <View style={{backgroundColor: '#5663A9'}}>
+        {/* {waiting && <View style={{backgroundColor: '#5663A9'}}>
           <SubHeader title={'The Masses Eye'} style={{marginTop: '-50%'}} />
-
           <View
             style={{
               backgroundColor: 'white',
@@ -187,133 +186,129 @@ export default function CallId({ navigation, route }) {
               borderTopLeftRadius: 20,
               justifyContent:  'center',
               alignItems:'center',
-
             }}>
             <View style={{margin: 20, }}>
               <View style={{marginTop: '20%',backgroundColor: 'white', flex:1}}>
-
               <Text style={{fontWeight: 'bold', fontSize: 30}}>
                 Waiting for the host
               </Text>
-              
+
                 <FadeInView style={{width: 250, height: 50, alignSelf:'center', marginTop: '10%'}}>
                   <Image
                     style={{width: 200, height: 200, resizeMode: 'contain', alignSelf:'center'}}
-                    
+
                     source={require('../../assets/images/MassesLogo.png')}
                   />
                 </FadeInView>
-
               </View>
-             
+
             </View>
           </View>
         </View>} */}
 
-      {!showViews && (
+        {!showViews && (
 
 
-        <View style={{ backgroundColor: '#5663A9' }}>
+            <View style={{ backgroundColor: '#5663A9' }}>
 
-          <SubHeader title={'The Masses Eye'} style={{ marginTop: '-50%' }} />
+              <SubHeader title={'The Masses Eye'} style={{ marginTop: '-50%' }} />
 
-          <View
-            style={{
-              backgroundColor: 'white',
-              borderTopEndRadius: 20,
-              borderTopLeftRadius: 20,
-              justifyContent: 'center',
-            }}>
-            <View style={{ margin: 20 }}>
-              <TextInput
-                style={{ backgroundColor: '#f6f6f6', borderRadius: 5 }}
-                placeholder="Call ID"
-                defaultValue={textView}
-                onChangeText={text => setTextView(text)}
-              />
+              <View
+                  style={{
+                    backgroundColor: 'white',
+                    borderTopEndRadius: 20,
+                    borderTopLeftRadius: 20,
+                    justifyContent: 'center',
+                  }}>
+                <View style={{ margin: 20 }}>
+                  <TextInput
+                      style={{ backgroundColor: '#f6f6f6', borderRadius: 5 }}
+                      placeholder="Call ID"
+                      defaultValue={textView}
+                      onChangeText={text => setTextView(text)}
+                  />
 
-              <TouchableOpacity
-                style={{
-                  backgroundColor: colors.secondary,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  width: 150,
-                  height: 50,
-                  borderRadius: 40,
-                  margin: 20,
-                  marginLeft: '50%',
-                  justifyContent: 'center',
-                }}
-                onPress={() => enterCall(textView.toUpperCase())}>
-                <Text style={{ color: colors.tertiary }} bold>
-                  {t('enter')}
-                </Text>
-                <Icon name="phone" size={15} style={{ color: colors.tertiary, padding: 10 }} />
-              </TouchableOpacity>
+                  <TouchableOpacity
+                      style={{
+                        backgroundColor: colors.secondary,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        width: 150,
+                        height: 50,
+                        borderRadius: 40,
+                        margin: 20,
+                        marginLeft: '50%',
+                        justifyContent: 'center',
+                      }}
+                      onPress={() => enterCall(textView.toUpperCase())}>
+                    <Text style={{ color: colors.tertiary }} bold>
+                      {t('enter')}
+                    </Text>
+                    <Icon name="phone" size={15} style={{ color: colors.tertiary, padding: 10 }} />
+                  </TouchableOpacity>
 
+                </View>
+              </View>
             </View>
-          </View>
-        </View>
-      )}
+        )}
 
-      {/* {showViews && ( */}
-      {showViews && (
-        <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always' }}>
-          <RemoteView
-            zOrderMediaOverlay={true}
-            style={{
-              flex: 0,
-              width: 150,
-              height: 150,
-              marginTop: '5%',
-              marginLeft: '60%',
-            }}
-            uid={peerIds[peerIds.length - 1]}
-            renderMode={1}
-          />
-          <LocalView
-            style={{ flex: 1, height: '100%', marginTop: '-50%' }}
-            cameraType={'back'}
-            zOrderMediaOverlay={false}
-            uid={1}
-            renderMode={1}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '100%',
-              height: '10%',
-              backgroundColor: 'white',
-              alignContent: 'center',
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity
-              onPress={() => agoraRtcEngine.current.switchCamera()}
-              style={{ alignSelf: 'center', marginLeft: '5%' }}>
-              <Image
-                style={{ width: 35, height: 35, padding: 10, resizeMode: 'contain' }}
-                size={10}
-                source={require('../../assets/images/switchCamera.png')}
+        {/* {showViews && ( */}
+        {showViews && (
+            <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always' }}>
+              <RemoteView
+                  zOrderMediaOverlay={true}
+                  style={{
+                    flex: 0,
+                    width: 150,
+                    height: 150,
+                    marginTop: '5%',
+                    marginLeft: '60%',
+                  }}
+                  uid={peerIds[peerIds.length - 1]}
+                  //zOrderMediaOverlay={(Platform.OS === 'ios')}
+                  renderMode={1}
               />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => endCall()}
-              style={{ alignSelf: 'center', marginLeft: '40%' }}>
-              <Icon
-                name="phone-slash"
-                size={35}
-                style={{
-                  color: 'red',
-                }}
+              <LocalView
+                  style={{ flex: 1, height: '100%', marginTop: '-50%' }}
+                  cameraType={'back'}
+                  zOrderMediaOverlay={false}
+                  uid={1}
+                  renderMode={1}
               />
-            </TouchableOpacity>
-          </View>
+              <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '100%',
+                    height: '10%',
+                    backgroundColor: 'white',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                <TouchableOpacity
+                    onPress={() => agoraRtcEngine.current.switchCamera()}
+                    style={{ alignSelf: 'center', marginLeft: '5%' }}>
+                  <Image
+                      style={{ width: 35, height: 35, padding: 10, resizeMode: 'contain' }}
+                      size={10}
+                      source={require('../../assets/images/switchCamera.png')}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => endCall()}
+                    style={{ alignSelf: 'center', marginLeft: '40%' }}>
+                  <Icon
+                      name="phone-slash"
+                      size={35}
+                      style={{
+                        color: 'red',
+                      }}
+                  />
+                </TouchableOpacity>
+              </View>
 
-          {/* <Text style={{backgroundColor: 'red'}}>{agoraChannel}</Text>
-       
+              {/* <Text style={{backgroundColor: 'red'}}>{agoraChannel}</Text>
 
-         
 
           <View style={{flex: 1}}>
             <View
@@ -329,19 +324,18 @@ export default function CallId({ navigation, route }) {
               <RemoteView style={{}} uid={2} renderMode={10} />
             </View>
             <View style={{flex: 1, height: '100%', zIndex:1,}}>
-            
+
               <LocalView
                 style={{flex: 1, height: '100%'}}
                 uid={1}
                 zOrderMediaOverlay={false}
-
                 renderMode={1}
               />
             </View>
           </View>
           <TouchableOpacity style={{width: 100,
               height: 100,
-              
+
               borderRadius: 100,
               backgroundColor: 'white',
               zIndex: 100,
@@ -349,20 +343,20 @@ export default function CallId({ navigation, route }) {
               alignItems:'center',
               bottom: 10,
               alignSelf: 'center',
-              
-              
-              
+
+
+
              }} onPress={() => endCall()}>
               <Icon
-              
+
             name="phone"
             size={35}
             style={{color: 'red',marginTop:'50%',transform: [{  rotate: '230deg' }] }}
             onPress={() => navigation.goBack()}
           />
             </TouchableOpacity> */}
-        </SafeAreaView>
-      )}
-    </View>
+            </SafeAreaView>
+        )}
+      </View>
   );
 }

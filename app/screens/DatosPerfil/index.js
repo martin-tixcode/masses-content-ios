@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Picker, Button } from 'react-native';
+import {Text, View, Picker, Button, Platform} from 'react-native';
 import styles from './styles';
 
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -63,7 +63,7 @@ export default function DatosScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Icon name="arrow-left" size={20} style={{ color: colors.secondary, padding: 10 }} onPress={() => navigation.goBack()} />
+            <Icon name="arrow-left" size={20} style={{ color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null }} onPress={() => navigation.goBack()} />
 
             <Text style={[styles.titulo, { color: 'white', }]}>Complete your Profile
           </Text>
@@ -78,13 +78,11 @@ export default function DatosScreen({ navigation }) {
                     <Text style={[styles.subTitulo, { fontSize: 20, marginTop: '15%', marginLeft: 20 }]}>Your information</Text>
                     <ScrollView style={{ padding: 20, paddingTop: -20 }}>
 
-                        <Text style={styles.subTitulo}>Occupation</Text>
+                        <Text style={[styles.subTitulo, {paddingTop: 0, marginTop: 0}]}>Occupation</Text>
 
-                        <View style={styles.input}>
+                        <View>
                             <Picker
-
                                 selectedValue={ocupacion}
-                                style={{ height: 50, width: '95%' }}
                                 onValueChange={(itemValue, itemIndex) => setOcupacion(itemValue)}>
                                      <Picker.Item label={'Select'} value={''} />
                                 {professionsOptions.map(data => (
@@ -96,21 +94,16 @@ export default function DatosScreen({ navigation }) {
                             </Picker>
                         </View>
 
-
-
-
-
-                        <Text style={styles.subTitulo}>Audiovisual resources</Text>
-                        <View style={styles.input}>
+                        <Text style={[styles.subTitulo, {paddingTop: 0, marginTop: 0}]}>Audiovisual resources</Text>
+                        <View style={{paddingBottom: 0, marginBottom: 0}}>
                             <Picker
-
+                                style={{marginTop: -10, paddingTop: -10}}
                                 selectedValue={audiovisuales}
-                                style={{ height: 50, width: '95%' }}
                                 onValueChange={(itemValue, itemIndex) => setAudiovisuales(itemValue)}
-                            >  
+                            >
                               <Picker.Item label={'Select'} value={''} />
                                 {audiovisualOptions.map(data => (
-                                    
+
                                     <Picker.Item label={data.name} key={data.id} value={data.id} />
                                 )
 
@@ -119,12 +112,11 @@ export default function DatosScreen({ navigation }) {
                         </View>
 
 
-                        <Text style={styles.subTitulo}>
+                        <Text style={[styles.subTitulo, {paddingTop: 0, marginTop: 0}]}>
 Do you have a car?</Text>
-                        <View style={styles.input}>
+                        <View>
                             <Picker
                                 selectedValue={Auto}
-                                style={{ height: 50, width: '95%' }}
                                 onValueChange={(itemValue, itemIndex) => setAuto(itemValue)}
                             >
                                 <Picker.Item label="Select" value={null} />
@@ -134,12 +126,11 @@ Do you have a car?</Text>
                         </View>
 
 
-                        <Text style={styles.subTitulo}>Level of study</Text>
+                        <Text style={[styles.subTitulo, {paddingTop: 0, marginTop: 0}]}>Level of study</Text>
 
-                        <View style={styles.input}>
+                        <View>
                             <Picker
                                 selectedValue={NivelEstudio}
-                                style={{ height: 50, width: '95%' }}
                                 onValueChange={(itemValue, itemIndex) => setNivelEstudio(itemValue)}
                             >
                                 <Picker.Item label={'Select'} value={''} />
@@ -151,12 +142,11 @@ Do you have a car?</Text>
                             </Picker>
                         </View>
 
-                        <Text style={styles.subTitulo}>Family Members</Text>
+                        <Text style={[styles.subTitulo, {paddingTop: 0, marginTop: 0}]}>Family Members</Text>
 
-                        <View style={styles.input}>
+                        <View>
                             <Picker
                                 selectedValue={Familiares}
-                                style={{ height: 50, width: '95%' }}
                                 onValueChange={(itemValue, itemIndex) => setFamiliares(itemValue)}
                             >
                                 <Picker.Item label="Select" value={null} />

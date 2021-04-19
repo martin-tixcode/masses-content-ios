@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, Alert, ImageBackground, Image, Picker} from 'react-native';
+import {Text, View, Alert, ImageBackground, Image, Picker, Platform} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScrollView, TextInput, TouchableOpacity} from 'react-native-gesture-handler';
@@ -69,7 +69,7 @@ export default function Configuracion({navigation}) {
             <Icon
               name="arrow-left"
               size={20}
-              style={{color: colors.secondary, padding: 10}}
+              style={{color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null}}
               onPress={() => navigation.goBack()}
             />
             <Text style={[styles.titulo, {color: 'white'}]}>Settings</Text>
@@ -128,7 +128,7 @@ export default function Configuracion({navigation}) {
             <Icon
               name="arrow-left"
               size={20}
-              style={{color: '#b5b4b0', padding: 10}}
+              style={{color: '#b5b4b0', padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null}}
               onPress={() => setPantalla('prim')}
             />
             <Text style={[styles.titulo, {color: '#45AACA'}]}>Settings</Text>
@@ -163,7 +163,7 @@ export default function Configuracion({navigation}) {
             <Icon
               name="arrow-left"
               size={20}
-              style={{color: colors.secondary, padding: 10}}
+              style={{color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null}}
               onPress={() => setPantalla('prim')}
             />
             <Text style={[styles.titulo, {color: 'white'}]}>Settings</Text>
@@ -247,7 +247,7 @@ export default function Configuracion({navigation}) {
             <Icon
               name="arrow-left"
               size={20}
-              style={{color: colors.secondary, padding: 10}}
+              style={{color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null}}
               onPress={() => setPantalla('prim')}
             />
             <Text style={[styles.titulo, {color: 'white'}]}>Settings</Text>

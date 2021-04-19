@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Button, Alert, Image, Picker} from 'react-native';
+import {Text, View, Button, Alert, Image, Picker, Platform} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {ScrollView, TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 import warning from '@assets/images/warning.png';
 import {useTheme} from '@config';
 import {useTranslation} from 'react-i18next';
@@ -22,7 +26,9 @@ export default function Pagos({navigation}) {
   const [lastName, setLastName] = useState(paymentMethod?.last_name);
   const [birthDate, setBirthDate] = useState(paymentMethod?.date_birth);
   const [dni, setDni] = useState(
-    paymentMethod?.identification_number ? paymentMethod.identification_number : '',
+    paymentMethod?.identification_number
+      ? paymentMethod.identification_number
+      : '',
   );
   const [email, setEmail] = useState(paymentMethod?.email);
   const [phone, setPhone] = useState(paymentMethod?.phone);
@@ -37,7 +43,6 @@ export default function Pagos({navigation}) {
   }, []);
 
   const fetchPaymentMethod = async () => {
-    
     let payment = await usersRepository.getPaymentMethod();
     setPaymentMethod(payment);
     setName(payment.name);
@@ -46,8 +51,8 @@ export default function Pagos({navigation}) {
     setCbu(payment.bank_account_number);
     setBankName(payment.bank_name);
     setDni(payment.identification_number ? payment.identification_number : '');
-    setPhone(payment.phone );
-    
+    setPhone(payment.phone);
+
     setAlias(payment.alias);
     return setPantalla(payment ? 'prim' : 'terc');
   };
@@ -60,7 +65,7 @@ export default function Pagos({navigation}) {
     let data = {
       name,
       last_name: lastName,
-      date_birth: birthDate,
+      //date_birth: birthDate,
       identification_number: parseInt(dni),
       email,
       phone: phone,
@@ -105,7 +110,9 @@ export default function Pagos({navigation}) {
             <Text style={styles.subTitulo}>{t('type_account')}</Text>
             <View style={styles.input}>
               <Text style={{color: 'grey'}}>
-                {paymentMethod.payment_method_id === 1 ? t('bank_transfer') : 'PayPal'}
+                {paymentMethod.payment_method_id === 1
+                  ? t('bank_transfer')
+                  : 'PayPal'}
               </Text>
             </View>
 
@@ -126,7 +133,9 @@ export default function Pagos({navigation}) {
             <Text style={styles.subTitulo}>{t('alias')}</Text>
             <View style={styles.input}>
               <Text style={{color: 'grey'}}>
-                {paymentMethod.alias ? paymentMethod.alias : t('needs_completing')}
+                {paymentMethod.alias
+                  ? paymentMethod.alias
+                  : t('needs_completing')}
               </Text>
             </View>
             <TouchableOpacity
@@ -182,8 +191,9 @@ export default function Pagos({navigation}) {
             <TextInput
               placeholder="phone numbre"
               value={phone}
-              onChangeText={text => setPhone (text)}
+              onChangeText={text => setPhone(text)}
               style={styles.input}
+              keyboardType={'numeric'}
             />
             {/* <Text style={styles.subTitulo}>{t('type_account')}</Text> */}
 
@@ -205,8 +215,7 @@ export default function Pagos({navigation}) {
               onChangeText={text => setBankName(text)}
               style={styles.input}
             />
-             <View>
-              
+            <View>
               <View>
                 <Text style={styles.subTitulo}>{t('Bank Account Number')}</Text>
                 <TextInput
@@ -214,12 +223,10 @@ export default function Pagos({navigation}) {
                   value={cbu}
                   onChangeText={text => setCbu(text)}
                   style={styles.input}
+                  keyboardType={'numeric'}
                 />
               </View>
-            
-          </View>
-
-            
+            </View>
 
             {/* <Text style={styles.subTitulo}>{t('info_account')}</Text>
 
@@ -234,7 +241,6 @@ export default function Pagos({navigation}) {
               </Picker>
             </View> */}
 
-           
             {/* <View>
               {DatosCuenta == 'alias' && (
                 <View>
@@ -263,10 +269,15 @@ export default function Pagos({navigation}) {
           <View style={styles.formulario}>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Image source={warning} style={{width: 80, height: 80}} />
-              <Text style={{textAlign: 'center'}}>{t('method_payment_text')}</Text>
+              <Text style={{textAlign: 'center'}}>
+                {t('method_payment_text')}
+              </Text>
             </View>
             <TouchableOpacity
-              style={[styles.boton, {marginLeft: '22%', marginTop: '20%', width: 200}]}
+              style={[
+                styles.boton,
+                {marginLeft: '22%', marginTop: '20%', width: 200},
+              ]}
               onPress={() => setPantalla('sec')}>
               <Text style={styles.TextoBoton}>{t('add_method_payment')}</Text>
             </TouchableOpacity>
@@ -280,13 +291,19 @@ export default function Pagos({navigation}) {
       <Icon
         name="arrow-left"
         size={20}
-        style={{color: colors.secondary, padding: 10}}
+        style={{
+          color: colors.secondary,
+          padding: 10,
+          marginTop: Platform.OS == 'ios' ? 50 : null,
+        }}
         onPress={() => navigation.goBack()}
       />
 
       <Text style={[styles.titulo, {color: 'white'}]}>{t('payment')}</Text>
       <View style={styles.cardContainer}>
-        <Text style={[styles.titulo, {fontSize: 20}]}>{t('your_information')}</Text>
+        <Text style={[styles.titulo, {fontSize: 20}]}>
+          {t('your_information')}
+        </Text>
         <ScrollView style={{padding: '5%'}}>{renderView()}</ScrollView>
       </View>
     </View>

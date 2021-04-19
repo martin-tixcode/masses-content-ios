@@ -131,7 +131,7 @@ export default function SignUp({ navigation }) {
       <Icon
         name="arrow-left"
         size={20}
-        style={{ color: colors.secondary, padding: 10 }}
+        style={{ color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null }}
         onPress={() => navigation.goBack()}
       />
       <Text style={[styles.titulo, { color: 'white' }]}>Terms and Conditions</Text>

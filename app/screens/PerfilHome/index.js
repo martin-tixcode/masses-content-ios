@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, ImageBackground, Alert} from 'react-native';
+import {View, Text, Image, ImageBackground, Alert, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Card} from '@components';
 import {useTranslation} from 'react-i18next';
@@ -50,10 +50,12 @@ export default function HomeScreen({navigation}) {
   };
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{flex: 1,alignItems: 'center', justifyContent: 'center'}}>
       <ImageBackground
         source={
-          user.image_url ? {uri: user.image_url} : require('@assets/images/Perfil.png')
+          user.image_url
+            ? {uri: user.image_url}
+            : require('@assets/images/Perfil.png')
         }
         style={{flex: 1, width: '100%', height: '60%', resizeMode: 'cover'}}>
         {console.log('imagen', user.image_url)}
@@ -62,6 +64,7 @@ export default function HomeScreen({navigation}) {
             position: 'absolute',
             width: '100%',
             top: 0,
+              marginTop: Platform.OS == 'ios' ? 50 : null,
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
@@ -75,7 +78,12 @@ export default function HomeScreen({navigation}) {
             onPress={() => navigation.openDrawer()}>
             <Icon name="bars" size={30} color="white" />
             <Text
-              style={{color: 'white', fontWeight: 'bold', fontSize: 25, marginLeft: 10}}>
+              style={{
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: 25,
+                marginLeft: 10,
+              }}>
               {t('profile')}
             </Text>
           </TouchableOpacity>
@@ -86,9 +94,14 @@ export default function HomeScreen({navigation}) {
               margin: 20,
               alignItems: 'center',
               color: 'blue',
+
             }}
             onPress={() =>
-              navigation.navigate('PickerScreen', {id, format, prefix: 'avatar/'})
+              navigation.navigate('PickerScreen', {
+                id,
+                format,
+                prefix: 'avatar/',
+              })
             }>
             <Icon name="camera" size={25} color={colors.secondary} />
             {/* <Text
@@ -126,7 +139,16 @@ export default function HomeScreen({navigation}) {
             <Text>{user.city}</Text>
           </View>
           <TouchableOpacity
-            style={styles.boton}
+            //style={{styles.boton}}
+              /*style={{
+                  //backgroundColor: colors.secondary,
+                  height: 40,
+                  width: 150,
+                  //alignItems:'center',
+                  borderRadius: 50,
+                  alignItems: 'baseline',
+                  //color: colors.tertiary
+              }}*/
             onPress={() => navigation.navigate('CompletarPerfil')}>
             <Text
               style={{
@@ -146,7 +168,9 @@ export default function HomeScreen({navigation}) {
             alignContent: 'space-around',
             justifyContent:'space-around',
           }}>
-          <Text style={{fontSize: 20, textAlign: 'left'}}>{t('my_portfolio')}</Text>
+          <Text style={{fontSize: 20, textAlign: 'left'}}>
+            {t('my_portfolio')}
+          </Text>
           <TouchableOpacity
             style={{
               flexDirection: 'row',
@@ -155,12 +179,21 @@ export default function HomeScreen({navigation}) {
               alignItems: 'center',
             }}
             onPress={() =>
-              navigation.navigate('PickerScreen', {id, format, prefix: 'portfolio/'})
+              navigation.navigate('PickerScreen', {
+                id,
+                format,
+                prefix: 'portfolio/',
+              })
             }>
             <Text style={{color: colors.tertiary, fontWeight: 'bold'}}>
               {t('add_portfolio')}
             </Text>
-            <Icon name="camera" size={20} color={colors.tertiary} style={{margin: 5}} />
+            <Icon
+              name="camera"
+              size={20}
+              color={colors.tertiary}
+              style={{margin: 5}}
+            />
           </TouchableOpacity>
         </View>
         <ScrollView>

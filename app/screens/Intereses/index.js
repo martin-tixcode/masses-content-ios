@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, Platform} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
@@ -22,7 +22,7 @@ export default function InteresesScreen({navigation}) {
   const sendData = async () => {
     let DTO = {
       interests: sendChecked,
-      
+
     };
     console.log('sendChecked', sendChecked)
     let response = await InterestRepository.setInterests(DTO);
@@ -96,7 +96,7 @@ export default function InteresesScreen({navigation}) {
       <Icon
         name="arrow-left"
         size={20}
-        style={{color: colors.secondary, padding: 10}}
+        style={{color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : null}}
         onPress={() => navigation.goBack()}
       />
 
