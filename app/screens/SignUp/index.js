@@ -166,9 +166,9 @@ export default function SignUp({navigation}) {
         }}>
         <ScrollView contentContainerStyle={{padding: 20, borderRadius: 20}}>
           {[
-            ['email', 'email', setEmail, email],
-            ['password', 'password', setPassword, password],
-            ['repeat_password', 'repassword', setRepassword, repassword],
+            ['email', 'email', setEmail, email, 'example@gmail.com'],
+            ['password', 'password', setPassword, password, '******'],
+            ['repeat_password', 'repassword', setRepassword, repassword, '******'],
           ].map(input => {
             return (
               <React.Fragment key={input[0]}>
@@ -181,6 +181,7 @@ export default function SignUp({navigation}) {
                   onChangeText={text => input[2](text)}
                   secureTextEntry={input[1] === 'password' || input[1] === 'repassword'}
                   value={input[3]}
+                  placeholder={input[4]}
                 />
               </React.Fragment>
             );
@@ -191,7 +192,7 @@ export default function SignUp({navigation}) {
               value={toggleCheckBox1}
               onValueChange={newValue => setToggleCheckBox1(newValue)}
             />
-            <View>
+            <View style={{marginLeft: 10}}>
               <Text>
                 {t('Pivacy_Policy_check_1')}
                 <NativeText style={{color: 'blue'}} onPress={() => navigation.navigate('PrivacyPolicy')}>{t('Pivacy_Policy')}</NativeText>
@@ -204,7 +205,7 @@ export default function SignUp({navigation}) {
               value={toggleCheckBox2}
               onValueChange={newValue => setToggleCheckBox2(newValue)}
             />
-            <View>
+            <View style={{marginLeft: 10}}>
               <Text>
                 {t('Pivacy_Policy_check_2')}
                 <NativeText style={{color: 'blue'}} onPress={() => navigation.navigate('PrivacyPolicy')}>{t('Pivacy_Policy')}</NativeText>
@@ -215,7 +216,7 @@ export default function SignUp({navigation}) {
             </View>
           </View>
 
-         
+
 
           <View style={{flexDirection: 'row', width: '90%', marginTop: 20}}>
             <CheckBox
@@ -223,7 +224,7 @@ export default function SignUp({navigation}) {
               value={toggleCheckBox3}
               onValueChange={newValue => setToggleCheckBox3(newValue)}
             />
-            <View>
+            <View style={{marginLeft: 10}}>
               <Text>
                 {t('Pivacy_Policy_check_3')}
                 <NativeText style={{color: 'blue'}} onPress={() => navigation.navigate('PrivacyPolicy')}>{t('Pivacy_Policy')}</NativeText>

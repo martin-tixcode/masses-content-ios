@@ -40,7 +40,6 @@ export default function Boarding({ navigation }) {
                 style={{
                   height: 20,
 
-                  marginTop: '-5%',
                   alignSelf: 'center',
                   fontWeight: 'bold',
                 }}>
