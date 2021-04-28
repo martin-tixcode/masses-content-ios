@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Picker, Button, Image, Alert } from 'react-native';
+import {Text, View, Picker, Button, Image, Alert, Platform} from 'react-native';
 import styles from './styles';
 import { Images, BaseColor, useTheme } from '@config';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -29,7 +29,7 @@ export default function PickerScreen({ navigation, route }) {
   const [avatar, setAvatar] = useState(null);
   const [keyPrefix] = useState(route.params.prefix);
   const [loading, setLoading] = useState(false);
-  
+
   const options =
     format == 'video/mp4'
       ? {
@@ -109,7 +109,7 @@ export default function PickerScreen({ navigation, route }) {
     const file = {
       // `uri` can also be a file system path (i.e. file://)
       uri: avatar.uri,
-      
+
       name: Math.random()
         .toString(36)
         .replace(/[^a-z]+/g, '')
@@ -197,8 +197,11 @@ export default function PickerScreen({ navigation, route }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
-      
-       <Icon name="arrow-left" size={20} style={{ color: colors.secondary, padding: 10, position:'absolute', left:10, top: 10}} onPress={() => navigation.goBack()} />
+
+       <Icon name="arrow-left" size={20}
+             style={{ color: colors.secondary, padding: 10, position:'absolute', left:10, top: 10, marginTop: Platform.OS == 'ios' ? 50 : null}}
+             onPress={() => navigation.goBack()}
+       />
       {loading ?
         <View
           style={{
@@ -236,7 +239,7 @@ export default function PickerScreen({ navigation, route }) {
               borderRadius: 10
             }}>
             {avatar == null ? (
-              picker == 'camera/' ? 
+              picker == 'camera/' ?
               launchCamera() :
               Picker()
             ) : format == 'video/mp4' ? (

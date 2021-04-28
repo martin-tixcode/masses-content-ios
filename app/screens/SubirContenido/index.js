@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, Picker, Button, Image} from 'react-native';
+import {Text, View, Picker, Button, Image, Platform} from 'react-native';
 import styles from './styles';
 import {Images, BaseColor, useTheme} from '@config';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -25,7 +25,7 @@ export default function unidoConvoc({navigation, route}) {
             <Icon
               name="arrow-left"
               size={20}
-              style={{color: colors.secondary, padding: 10}}
+              style={{color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : 0}}
               onPress={() => navigation.goBack()}
             />
             <TouchableOpacity
@@ -96,7 +96,7 @@ export default function unidoConvoc({navigation, route}) {
                 {t('Photo')}
               </Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity
               style={[styles.cardContainer]}
               onPress={() =>

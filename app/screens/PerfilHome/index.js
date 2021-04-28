@@ -141,21 +141,21 @@ export default function HomeScreen({navigation}) {
           <TouchableOpacity
             //style={{styles.boton}}
               /*style={{
-                  //backgroundColor: colors.secondary,
+                  backgroundColor: '#DCDA00',
                   height: 40,
                   width: 150,
                   //alignItems:'center',
                   borderRadius: 50,
-                  alignItems: 'baseline',
+                  //alignItems: 'baseline',
                   //color: colors.tertiary
               }}*/
             onPress={() => navigation.navigate('CompletarPerfil')}>
             <Text
               style={{
                 fontWeight: 'bold',
-                marginLeft: '15%',
+                marginLeft: '12%',
                 height: 20,
-                marginTop: '5%',
+                marginTop: '7%',
               }}>
               {t('complete_profile')}
             </Text>

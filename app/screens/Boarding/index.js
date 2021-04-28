@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Button, ImageBackground, Image } from 'react-native';
+import {Text, View, Button, ImageBackground, Image, Platform} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -72,11 +72,11 @@ export default function Boarding({ navigation }) {
                 <Icon
                   name="arrow-left"
                   size={20}
-                  style={{ color: colors.secondary, padding: 10, }}
+                  style={{ color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : 0}}
                   onPress={() => setPantalla('prim')}
                 />
                 <TouchableOpacity onPress={() => setPantalla('cuart')}>
-                  <Text style={{ color: colors.secondary, fontWeight: 'bold' }}>{t('skip')}</Text>
+                  <Text style={{ color: colors.secondary, fontWeight: 'bold', marginTop: Platform.OS == 'ios' ? 50 : 0 }}>{t('skip')}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.info}>
@@ -115,11 +115,11 @@ export default function Boarding({ navigation }) {
                 <Icon
                   name="arrow-left"
                   size={20}
-                  style={{ color: colors.secondary, padding: 10 }}
+                  style={{ color: colors.secondary, padding: 10,  marginTop: Platform.OS == 'ios' ? 50 : 0}}
                   onPress={() => setPantalla('sec')}
                 />
                 <TouchableOpacity onPress={() => setPantalla('cuart')}>
-                  <Text style={{ color: colors.secondary, fontWeight: 'bold' }}>{t('skip')}</Text>
+                  <Text style={{ color: colors.secondary, fontWeight: 'bold', marginTop: Platform.OS == 'ios' ? 50 : 0 }}>{t('skip')}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.info}>
@@ -159,7 +159,7 @@ export default function Boarding({ navigation }) {
                 <Icon
                   name="arrow-left"
                   size={20}
-                  style={{ color: colors.secondary, padding: 10 }}
+                  style={{ color: colors.secondary, padding: 10, marginTop: Platform.OS == 'ios' ? 50 : 0 }}
                   onPress={() => setPantalla('terc')}
                 />
               </View>

@@ -12,6 +12,7 @@ import {useTheme} from '@config';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {RepositoryFactory} from '@repositories/RepositoryFactory';
+import DatePicker from "react-native-datepicker";
 
 const usersRepository = RepositoryFactory.get('users');
 
@@ -65,7 +66,7 @@ export default function Pagos({navigation}) {
     let data = {
       name,
       last_name: lastName,
-      //date_birth: birthDate,
+      date_birth: birthDate,
       identification_number: parseInt(dni),
       email,
       phone: phone,
@@ -105,7 +106,7 @@ export default function Pagos({navigation}) {
             </View>
             <Text style={styles.subTitulo}>{t('lastName')}</Text>
             <View style={styles.input}>
-              <Text style={{color: 'grey'}}>{paymentMethod.lastName}</Text>
+              <Text style={{color: 'grey'}}>{paymentMethod.last_name}</Text>
             </View>
             <Text style={styles.subTitulo}>{t('type_account')}</Text>
             <View style={styles.input}>
@@ -115,10 +116,9 @@ export default function Pagos({navigation}) {
                   : 'PayPal'}
               </Text>
             </View>
-
             <Text style={styles.subTitulo}>{t('dni')}</Text>
             <View style={styles.input}>
-              <Text style={{color: 'grey'}}>{paymentMethod.dni}</Text>
+              <Text style={{color: 'grey'}}>{paymentMethod.identification_number}</Text>
             </View>
             <Text style={styles.subTitulo}>{t('info_account')}</Text>
             <View style={styles.input}>
@@ -127,7 +127,7 @@ export default function Pagos({navigation}) {
             <Text style={styles.subTitulo}>{t('cbu')}</Text>
             <View style={styles.input}>
               <Text style={{color: 'grey'}}>
-                {paymentMethod.cbu ? paymentMethod.cbu : t('needs_completing')}
+                {paymentMethod.bank_account_number ? paymentMethod.bank_account_number : t('needs_completing')}
               </Text>
             </View>
             <Text style={styles.subTitulo}>{t('alias')}</Text>
@@ -173,12 +173,35 @@ export default function Pagos({navigation}) {
               style={styles.input}
             />
             <Text style={styles.subTitulo}>{t('Birth Date')}</Text>
-            <TextInput
-              placeholder="MM/DD/YYYY"
-              value={birthDate}
-              onChangeText={text => setBirthDate(text)}
-              style={styles.input}
-            />
+              <DatePicker
+                  style={{ width: '100%', height: 50 }}
+                  date={birthDate}
+                  mode="date"
+                  placeholder=""
+                  format="YYYY-MM-DD"
+                  minDate="1900-01-01"
+                  // maxDate="2016-06-01"
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  customStyles={{
+                      dateIcon: {
+                          position: 'absolute',
+                          right: 0,
+                          top: 4,
+                          marginLeft: 0,
+                      },
+                      dateInput: {
+                          marginLeft: '-75%',
+                          alignSelf: 'center',
+                          borderWidth: 0,
+                          marginTop: '1%',
+                      },
+                      // ... You can check the source to find the other keys.
+                  }}
+                  onDateChange={date => {
+                      setBirthDate(date);
+                  }}
+              />
 
             <Text style={styles.subTitulo}>{t('Email')}</Text>
             <TextInput

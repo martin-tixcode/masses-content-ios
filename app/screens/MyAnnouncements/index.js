@@ -4,6 +4,7 @@ import {View, ScrollView} from 'react-native';
 
 import {SafeAreaView, SubHeader} from '@components';
 import {useTranslation} from 'react-i18next';
+import {BaseColor, useTheme} from '@config';
 import AnnouncementsTabView from './AnnouncementsTabView';
 import {RepositoryFactory} from '@repositories/RepositoryFactory';
 
@@ -11,6 +12,7 @@ const castingsRepository = RepositoryFactory.get('castings');
 
 export default function MyAnnouncements({navigation}) {
   const {t} = useTranslation();
+  const {colors} = useTheme();
   const [announcements, setAnnouncements] = useState([]);
   const [activeAnnouncements, setActiveAnnouncements] = useState([]);
   const [pendingAnnouncements, setPendingAnnouncements] = useState([]);
@@ -197,7 +199,7 @@ export default function MyAnnouncements({navigation}) {
   const [loading, setLoading] = useState(false);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: colors.primary}}>
       <SafeAreaView style={{flex: 1}} forceInset={{top: 'always'}}>
         <ScrollView>
           <SubHeader title={t('my_announcements')} />

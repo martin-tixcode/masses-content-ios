@@ -91,7 +91,7 @@ export default function AnnouncementDetail({ navigation, route }) {
 
 
   function selectScreen(){
-  
+
     switch (screen) {
       case 'prim':
         return(
@@ -155,7 +155,7 @@ export default function AnnouncementDetail({ navigation, route }) {
                   <Text style={{  width: '100%' }}>
                     {announcementData.description}
                   </Text>
-                
+
                   {/* <View style={styles.rangeRow}>
                     <Icon name="coins" size={32} color="#FFDB5B" style={{marginRight: 10}} />
                     <Text style={{flexShrink: 1}} semibold>
@@ -168,9 +168,9 @@ export default function AnnouncementDetail({ navigation, route }) {
                   </TouchableOpacity>
                 <Text headline semibold style={styles.marginVertical}>
                   {t('requirements')}
-      
+
                 </Text>
-      
+
                 {announcementData.requirements.map(requirement => {
                   return (
                     <View style={styles.requirement}>
@@ -203,13 +203,13 @@ export default function AnnouncementDetail({ navigation, route }) {
                       />
                     </>
                   )}
-      
+
                   {announcementData.statusId === 5 && (
                     <Text title3 semibold primaryColor style={{ textAlign: 'center' }}>
                       {t('announcement_rejected')}
                     </Text>
                   )}
-      
+
                   {announcementData.expired ? (
                     <Text title3 semibold primaryColor style={{ textAlign: 'center' }}>
                       {t('announcement_expired')}
@@ -221,20 +221,20 @@ export default function AnnouncementDetail({ navigation, route }) {
                             {t('join')}
                           </Button>
                         )}
-      
+
                         {announcementData.statusId === 1 && (
                           <Button style={[styles.button]} styleText={{ fontSize: 18 }}>
                             {t('upload_content')}
                           </Button>
                         )}
-      
+
                         {(announcementData.statusId === 2 ||
                           announcementData.statusId === 3) && (
                             <Button style={[styles.button]} styleText={{ fontSize: 18 }}>
                               {t('chat')}
                             </Button>
                           )}
-      
+
                         {announcementData.statusId === 3 && (
                           <Button style={[styles.button]} styleText={{ fontSize: 18 }}>
                             {t('go_to_meeting')}
@@ -258,9 +258,9 @@ export default function AnnouncementDetail({ navigation, route }) {
 
 
         );
-        
+
         break;
-        case 'sec': 
+        case 'sec':
         return(
 
 
@@ -314,22 +314,22 @@ export default function AnnouncementDetail({ navigation, route }) {
                     borderColor: colors.border,
                   },
                 ]}>
-                
-               
+
+
                 <View >
                   <NativeText style={{  width: '100%'}}>
                     {announcementData.description}
                   </NativeText>
-                
-                  
+
+
                 </View>
-                
-                
-                 
-               
+
+
+
+
               </View>
             </ScrollView>
-           
+
           </SafeAreaView>
             </View>
 
@@ -340,7 +340,7 @@ export default function AnnouncementDetail({ navigation, route }) {
       //   break;
       case 'terc':
         return(
-           
+
           <View>
 
 
@@ -391,8 +391,8 @@ export default function AnnouncementDetail({ navigation, route }) {
                     borderColor: colors.border,
                   },
                 ]}>
-                
-               
+
+
                 <View >
                 {announcementData.requirements.map(requirement => {
                   return (
@@ -407,15 +407,15 @@ export default function AnnouncementDetail({ navigation, route }) {
                     </View>
                   );
                 })}
-                  
+
                 </View>
-                
-                
-                 
-               
+
+
+
+
               </View>
             </ScrollView>
-           
+
           </SafeAreaView>
             </View>
 
@@ -427,7 +427,7 @@ export default function AnnouncementDetail({ navigation, route }) {
 
 
   return (
-   
+
     <View style={{ flex: 1 }}>
       {selectScreen()}
   </View>
@@ -435,14 +435,14 @@ export default function AnnouncementDetail({ navigation, route }) {
 
 
 
-    
+
     // <View>
 
-    //   
+    //
 
     // </View>
   );
 }
 
 
-// 
+//

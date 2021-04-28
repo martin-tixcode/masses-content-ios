@@ -222,7 +222,7 @@ export default function CallId({ navigation, route }) {
                   }}>
                 <View style={{ margin: 20 }}>
                   <TextInput
-                      style={{ backgroundColor: '#f6f6f6', borderRadius: 5 }}
+                      style={{ backgroundColor: '#f6f6f6', height: 50,borderRadius: 5 }}
                       placeholder="Call ID"
                       defaultValue={textView}
                       onChangeText={text => setTextView(text)}
@@ -266,7 +266,6 @@ export default function CallId({ navigation, route }) {
                     marginLeft: '60%',
                   }}
                   uid={peerIds[peerIds.length - 1]}
-                  //zOrderMediaOverlay={(Platform.OS === 'ios')}
                   renderMode={1}
               />
               <LocalView
