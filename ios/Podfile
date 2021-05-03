@@ -4,7 +4,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'FelixPro' do
+target 'Masses Content' do
   config = use_native_modules!
 
   use_react_native!(
@@ -12,11 +12,11 @@ target 'FelixPro' do
     :hermes_enabled => false
   )
 
-  use_flipper!()
+  #use_flipper!()
 
-  post_install do |installer|
-    react_native_post_install(installer)
-  end
+  #post_install do |installer|
+    #react_native_post_install(installer)
+  #end
 
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Picker, Button, Alert} from 'react-native';
+import {Text, View, Picker, Button, Alert, StyleSheet} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
 
-import {Picker as RNCPicker} from '@react-native-community/picker'
+import SelectInput from 'react-native-select-input-ios'
 import {
   ScrollView,
   TextInput,
@@ -27,6 +27,7 @@ export default function Cuentanos({navigation}) {
   const [prefix, setPrefix] = useState(null);
   const [number, setNumber] = useState(null);
   const [countries, setCountries] = useState([]);
+  const [countriesPhone, setCountriesPhone] = useState([]);
   const [country, setCountry] = useState(null);
   const [dateBirth, setDateBirth] = useState(null);
   /* const [pais, setPais] = useState({
@@ -44,64 +45,26 @@ export default function Cuentanos({navigation}) {
   const fetchCountries = async () => {
     await checkAuth();
     let result = await userRepository.getCountries();
-    setCountries(result);
+    let info = []
+    let info2 = []
+
+    result.forEach( country => {
+      let data = {}
+      data.label = '+' + country.code + ' ' + country.name
+      data.value = country.code
+      info.push(data)
+    })
+
+    result.forEach( co => {
+      let data = {}
+      data.label = co.name
+      data.value = co.id
+      info2.push(data)
+    })
+
+    setCountriesPhone(info);
+    setCountries(info2)
   };
-  const K_OPTIONS = [
-    {
-      item: 'Juventus',
-      id: 'JUVE',
-    },
-    {
-      item: 'Real Madrid',
-      id: 'RM',
-    },
-    {
-      item: 'Barcelona',
-      id: 'BR',
-    },
-    {
-      item: 'PSG',
-      id: 'PSG',
-    },
-    {
-      item: 'FC Bayern Munich',
-      id: 'FBM',
-    },
-    {
-      item: 'Manchester United FC',
-      id: 'MUN',
-    },
-    {
-      item: 'Manchester City FC',
-      id: 'MCI',
-    },
-    {
-      item: 'Everton FC',
-      id: 'EVE',
-    },
-    {
-      item: 'Tottenham Hotspur FC',
-      id: 'TOT',
-    },
-    {
-      item: 'Chelsea FC',
-      id: 'CHE',
-    },
-    {
-      item: 'Liverpool FC',
-      id: 'LIV',
-    },
-    {
-      item: 'Arsenal FC',
-      id: 'ARS',
-    },
-
-    {
-      item: 'Leicester City FC',
-      id: 'LEI',
-    },
-  ]
-
 
   const sendData = async () => {
     let DTO = {
@@ -150,47 +113,21 @@ export default function Cuentanos({navigation}) {
             />
 
             <Text style={styles.subTitulo}>{t('phone_number')}</Text>
-            <RNCPicker
-                //style={{ inputAndroid: pickerStyle, inputIOS: pickerStyle }}
-                placeholder={'this.placeholder'}
-                onValueChange={(itemValue, itemIndex) => setPrefix(itemValue)}
-                selectedValue={prefix}
-            >
-              {countries.map((country, index) => (
-                  <RNCPicker.Item
-                      label={'+' + country.code + ' ' + country.name}
-                      value={country.code}
-                      key={index}
-                  />
-              ))}
-            </RNCPicker>
+
             <View
               style={{
                 flexDirection: 'row',
                 width: '100%',
                 justifyContent: 'space-between',
               }}>
-              <View
-                style={{
-                  width: '50%',
-                }}>
-
-                <Picker
-                  selectedValue={prefix}
-                  itemStyle={{height: 40, width: '100%', marginLeft: 0}}
-                  style={{width: '100%', marginLeft: 0, paddingLeft: 0}}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setPrefix(itemValue)
-                  }>
-                  <Picker.Item label="Select" value="Select" />
-                  {countries.map(country => (
-                    <Picker.Item
-                      label={'+' + country.code + ' ' + country.name}
-                      value={country.code}
-                    />
-                  ))}
-                </Picker>
-              </View>
+                <View style={{margin :10}}>
+                  <SelectInput
+                      value={prefix ? prefix : countriesPhone[0]?.value}
+                      options={countriesPhone}
+                      onSubmitEditing={(itemValue, itemIndex) => setPrefix(itemValue)}
+                      style={[styles.selectInput, styles.selectInputSmall]}
+                  />
+                </View>
               <View style={{width: '50%'}}>
                 <TextInput
                   placeholder="Number"
@@ -235,7 +172,15 @@ export default function Cuentanos({navigation}) {
               />
             </View>
             <Text style={styles.subTitulo}>{t('country')}</Text>
-            <Picker
+            <View style={styles.smallInputWrapper}>
+              <SelectInput
+                  value={country ? country : countries[0]?.value}
+                  options={countries}
+                  onSubmitEditing={(itemValue, itemIndex) => setCountry(itemValue)}
+                  style={[styles.selectInput, styles.selectInputSmall]}
+              />
+            </View>
+            {/*<Picker
               selectedValue={country}
               itemStyle={{height: 40, width: '100%', marginLeft: 0}}
               style={{width: '100%', marginLeft: 0, paddingLeft: 0}}
@@ -244,9 +189,19 @@ export default function Cuentanos({navigation}) {
               {countries.map(country => (
                 <Picker.Item label={country.name} value={country.id} />
               ))}
-            </Picker>
+            </Picker>*/}
             <Text style={styles.subTitulo}>{t('gender')}</Text>
-            <Picker
+            <SelectInput
+                value={sexo ? sexo : 1}
+                options={[
+                  { label: 'Female', value: 1},
+                  { label: 'Male', value: 2},
+                  { label: 'Other', value: 3},
+                ]}
+                onSubmitEditing={(itemValue, itemIndex) => setSexo(itemValue)}
+                style={[styles.selectInput, styles.selectInputSmall]}
+            />
+            {/*<Picker
               selectedValue={sexo}
               itemStyle={{height: 40, width: '100%', marginLeft: 0}}
               style={{width: '100%', marginLeft: 0, paddingLeft: 0}}
@@ -255,7 +210,7 @@ export default function Cuentanos({navigation}) {
               <Picker.Item label="Female" value={1} />
               <Picker.Item label="Male" value={2} />
               <Picker.Item label="Other" value={3} />
-            </Picker>
+            </Picker>*/}
 
             <TouchableOpacity
               style={styles.boton}
@@ -274,3 +229,46 @@ export default function Cuentanos({navigation}) {
     </View>
   );
 }
+
+const styless = StyleSheet.create({
+  scrollViewContentContainer: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  label: {
+    fontSize: 13,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  smallInputWrapper: {
+    width: '45%',
+    flexDirection: 'column',
+  },
+  selectInput: {
+    flexDirection: 'row',
+    height: 36,
+    borderWidth: 1,
+    borderRadius: 4,
+    backgroundColor: '#FFFFFF',
+  },
+  selectInputSmall: {
+    width: '100%',
+  },
+  selectInputLarge: {
+    width: '100%',
+  },
+  bananawrapper: {
+    marginBottom: 0,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  line: {
+    height: 1,
+    backgroundColor: 'black',
+  },
+});
